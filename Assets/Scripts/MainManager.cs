@@ -15,10 +15,14 @@ public class MainManager : MonoBehaviour
     public GameObject GameOverText;
     
     private bool m_Started = false;
+
     private int m_Points;
     private int bestScore;
+    private int secScore;
+    
     private string m_PLayerName;
     private string bestPlayerName;
+    private string secPlayerName;
     
     private bool m_GameOver = false;
     
@@ -30,8 +34,10 @@ public class MainManager : MonoBehaviour
         if (HighScoreSave.Instance != null)
         {
             bestScore = HighScoreSave.Instance.bestScore;
+            secScore = HighScoreSave.Instance.secScore;
             m_PLayerName = HighScoreSave.Instance.playerName;
             bestPlayerName = HighScoreSave.Instance.bestPlayerName;
+            secPlayerName = HighScoreSave.Instance.secPlayerName;
         }
        
         
@@ -97,8 +103,7 @@ public class MainManager : MonoBehaviour
     public void GameOver()
     {
         m_GameOver = true;
-        BestScore();
-        BestScoreText();
+        BestScore();        
         GameOverText.SetActive(true);
     }
 
@@ -109,14 +114,30 @@ public class MainManager : MonoBehaviour
 
     public void BestScore()
     {
-        if (m_Points > HighScoreSave.Instance.bestScore)
+        if (m_Points > HighScoreSave.Instance.bestScore)   // Top Highscore  
         {
-            HighScoreSave.Instance.bestScore = m_Points;
-            bestScore = HighScoreSave.Instance.bestScore;
+            HighScoreSave.Instance.secScore = bestScore;            //1.Place -> 2.Place
+            HighScoreSave.Instance.secPlayerName = bestPlayerName;
+            HighScoreSave.Instance.thrdScore = secScore;            //2.Place -> 3.Place
+            HighScoreSave.Instance.thrdPlayerName = secPlayerName;
+            HighScoreSave.Instance.bestScore = m_Points;            //New Highscore
+            bestScore = HighScoreSave.Instance.bestScore;           
+            secScore = HighScoreSave.Instance.secScore;
             HighScoreSave.Instance.bestPlayerName = m_PLayerName;
             
         }
-        
+        else if (m_Points > HighScoreSave.Instance.secScore)
+        {
+            HighScoreSave.Instance.thrdScore = secScore;            //2.Place -> 3.Place
+            HighScoreSave.Instance.thrdPlayerName = secPlayerName;
+            HighScoreSave.Instance.secScore = m_Points;
+            HighScoreSave.Instance.secPlayerName = m_PLayerName;
+        }
+        else if (m_Points > HighScoreSave.Instance.thrdScore)
+        {
+            HighScoreSave.Instance.thrdScore = m_Points;
+            HighScoreSave.Instance.thrdPlayerName = m_PLayerName;
+        }
     }
 
     public void BestScoreText()

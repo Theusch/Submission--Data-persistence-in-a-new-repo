@@ -6,10 +6,15 @@ using System.IO;
 public class HighScoreSave : MonoBehaviour
 {
     public static HighScoreSave Instance;
-    public int score;
+    
     public int bestScore;
+    public int secScore;
+    public int thrdScore;
+
     public string playerName;
     public string bestPlayerName;
+    public string secPlayerName;
+    public string thrdPlayerName;
 
 
     private void Awake()
@@ -30,7 +35,12 @@ public class HighScoreSave : MonoBehaviour
     class SaveData
     {
         public int bestScore;
+        public int secScore;
+        public int thrdScore;
+
         public string bestPlayerName;
+        public string secPlayerName;
+        public string thrdPlayerName;
     }
 
     public void SaveHighscore()
@@ -38,6 +48,10 @@ public class HighScoreSave : MonoBehaviour
         SaveData data = new SaveData();
         data.bestPlayerName = bestPlayerName;
         data.bestScore = bestScore;
+        data.secPlayerName = secPlayerName;
+        data.secScore = secScore;
+        data.thrdPlayerName = thrdPlayerName;
+        data.thrdScore = thrdScore;
 
         string Json = JsonUtility.ToJson(data);
         File.WriteAllText(Application.persistentDataPath +"/Submissionsave.json", Json);
@@ -53,6 +67,10 @@ public class HighScoreSave : MonoBehaviour
 
             bestPlayerName = data.bestPlayerName;
             bestScore = data.bestScore;
+            secPlayerName = data.secPlayerName;
+            secScore = data.secScore;
+            thrdPlayerName = data.thrdPlayerName;
+            thrdScore = data.thrdScore;
             
         }
         

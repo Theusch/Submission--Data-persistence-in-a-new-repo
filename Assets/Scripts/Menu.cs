@@ -14,7 +14,7 @@ public class Menu : MonoBehaviour
     private string bestPlayerText;
     private int bestScore;
     public GameObject highScore;
-    // Start is called before the first frame update
+    
     void Start()
     {
         if (HighScoreSave.Instance != null)
@@ -26,12 +26,7 @@ public class Menu : MonoBehaviour
         HighScoreText();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+   
 
     public void StartGame()
     {
@@ -47,6 +42,12 @@ public class Menu : MonoBehaviour
         Application.Quit();
 #endif
     }
+
+    public void HighScoreMenu()
+    {
+        SceneManager.LoadScene(2);
+    }
+
 
     public void SetPlayerName()
     {
@@ -65,7 +66,11 @@ public class Menu : MonoBehaviour
     public void ResetHighscore()
     {
         HighScoreSave.Instance.bestScore = 0;
-        HighScoreSave.Instance.bestPlayerName = "No Player";
+        HighScoreSave.Instance.secScore = 0;
+        HighScoreSave.Instance.thrdScore = 0;
+        HighScoreSave.Instance.bestPlayerName = "No Player1";
+        HighScoreSave.Instance.secPlayerName = "No Player2";
+        HighScoreSave.Instance.thrdPlayerName = "No Player3";
         SceneManager.LoadScene(0);
     }
 }
